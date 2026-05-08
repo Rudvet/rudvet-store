@@ -18,7 +18,7 @@
                 Смартфоны, ноутбуки и гаджеты для вашего комфорта. Быстрая доставка, гарантия качества.
             </p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                <a href="{{ route('catalog') }}" class="inline-flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 bg-white text-purple-700 font-bold rounded-xl hover:bg-purple-50 transition-all duration-300 hover:shadow-xl text-sm sm:text-base">
+                <a href="{{ route('catalog') }}" class="inline-flex items-center justify-center space-x-2 px-6 sm:px-8 py-3 bg-white text-purple-700 font-bold rounded-xl hover:bg-purple-50 transition-colors">
                     <span>В каталог</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
@@ -35,10 +35,10 @@
     </div>
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3 md:gap-4">
         @foreach($categories as $cat)
-        <a href="{{ route('catalog') }}?category={{ $cat->slug }}" class="card-hover bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 text-center shadow-sm border border-gray-100 hover:shadow-md transition-all">
+        <a href="{{ route('catalog') }}?category={{ $cat->slug }}" class="card-hover bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 text-center shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
             <div class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-1 sm:mb-2 md:mb-3">{{ $cat->icon }}</div>
             <div class="font-bold text-gray-800 text-xs sm:text-sm">{{ $cat->name }}</div>
-            <div class="text-gray-400 text-[10px] sm:text-xs mt-0.5 sm:mt-1">{{ $cat->products_count }} товаров</div>
+            <div class="text-gray-400 text-[10px] sm:text-xs mt-0.5 sm:mt-1">{{ $cat->products_count ?? 0 }} товаров</div>
         </a>
         @endforeach
     </div>
@@ -81,5 +81,8 @@
         @endforeach
     </div>
 </section>
+
+<!-- AI Assistant Widget -->
+@include('components.ai-assistant')
 
 @endsection
