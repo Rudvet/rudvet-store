@@ -413,5 +413,39 @@ document.addEventListener('DOMContentLoaded', function() {
     .catch(error => console.error('Error loading cart count:', error));
 });
 </script>
+@yield('scripts')
+<!-- ЧАТ -->
+<div id="chat-box" class="hidden fixed bottom-20 right-5 w-96 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50">
+    
+    <!-- header -->
+    <div class="bg-purple-600 text-white px-4 py-3 flex justify-between items-center">
+        <span class="font-bold">AI Ассистент</span>
+        <button onclick="toggleChat()">✖</button>
+    </div>
+
+    <!-- messages -->
+    <div id="chat-messages" class="flex-1 p-3 space-y-2 overflow-y-auto text-sm" style="max-height: 300px;">
+        <div class="text-left">
+            <span class="bg-gray-200 px-3 py-2 rounded-lg inline-block">
+                Привет! Чем помочь?
+            </span>
+        </div>
+    </div>
+
+    <!-- input -->
+    <div class="flex border-t">
+        <input id="chat-input" type="text" placeholder="Введите сообщение..."
+               class="flex-1 px-3 py-2 text-sm outline-none">
+        <button onclick="sendMessage()" class="px-4 text-purple-600 font-bold">
+            ➤
+        </button>
+    </div>
+</div>
+
+<!-- КНОПКА ОТКРЫТИЯ -->
+<button onclick="toggleChat()"
+        class="fixed bottom-5 right-5 bg-purple-600 text-white w-14 h-14 rounded-full shadow-xl text-xl z-50 hover:bg-purple-700">
+    💬
+</button>
 </body>
 </html>

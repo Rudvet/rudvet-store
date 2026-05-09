@@ -180,3 +180,65 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 </style>
 @endsection
+@section('scripts')
+<script>
+function toggleChat() {
+    document.getElementById('chat-box').classList.toggle('hidden');
+}
+
+function addMessage(text, isUser = false) {
+    const container = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+
+    div.className = isUser 
+        ? 'text-right' 
+        : 'text-left';
+
+    div.innerHTML = `
+        <span class="inline-block px-3 py-2 rounded-lg ${
+            isUser ? 'bg-purple-600 text-white' : 'bg-gray-200'
+        }">${text}</span>
+    `;
+
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value;
+
+    if (!text) return;
+
+    addMessage(text, true);
+    input.value = '';
+
+    fetch('/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({ message: text })
+    })
+    .then(res => res.json())
+    .then(data => {
+        addMessage(data.reply);
+    })
+    .catch(() => {
+        addMessage('Ошибка соединения');
+    });
+}
+document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('chat-input');
+
+    if (input) {
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // чтобы не было переноса строки
+                sendMessage();
+            }
+        });
+    }
+});
+</script>

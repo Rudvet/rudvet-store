@@ -11,6 +11,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ChatController;
 
 // Public
 Route::get('/', [ShopController::class, 'index'])->name('home');
@@ -71,3 +72,6 @@ Route::delete('/admin/categories/{id}', [AdminCategoryController::class, 'destro
 Route::get('/admin/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
 Route::get('/admin/orders/{id}', [AdminOrderController::class, 'show'])->name('admin.orders.show');
 Route::put('/admin/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.status');
+
+//AI
+Route::post('/chat', [ChatController::class, 'chat']);
