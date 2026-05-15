@@ -1,7 +1,12 @@
 FROM php:8.3-apache
 
-# Устанавливаем расширения PHP
-RUN docker-php-ext-install pdo pdo_mysql
+# Устанавливаем необходимые системные пакеты: git, unzip, zip
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    zip \
+    libzip-dev \
+    && docker-php-ext-install pdo pdo_mysql zip
 
 # Включаем mod_rewrite для Laravel
 RUN a2enmod rewrite
@@ -15,7 +20,7 @@ COPY . /var/www/html/
 # Устанавливаем зависимости Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Настраиваем права на storage
+# Настраиваем права на storage и bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
