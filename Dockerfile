@@ -34,4 +34,6 @@ RUN echo '<VirtualHost *:80>\n\
     </Directory>\n\
 </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
+RUN php artisan migrate --force
+
 EXPOSE 80
