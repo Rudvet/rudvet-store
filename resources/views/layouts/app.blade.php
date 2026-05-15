@@ -414,6 +414,124 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 @yield('scripts')
+    <style>
+    /* Адаптивные стили для чата */
+    #chat-box {
+        transition: all 0.3s ease;
+    }
+    
+    /* Мобильная адаптация */
+    @media (max-width: 768px) {
+        #chat-box {
+            width: calc(100vw - 2rem);
+            max-width: 350px;
+            right: 1rem;
+            bottom: 5rem;
+            border-radius: 1rem;
+        }
+        
+        #chat-messages {
+            max-height: 400px;
+            min-height: 300px;
+        }
+        
+        #chat-box button,
+        #chat-box input,
+        #chat-open-btn {
+            min-height: 44px;
+        }
+        
+        #chat-input {
+            font-size: 16px;
+            padding: 12px;
+        }
+        
+        #chat-box button[onclick="sendMessage()"] {
+            min-width: 54px;
+            font-size: 20px;
+        }
+        
+        #chat-open-btn {
+            width: 56px;
+            height: 56px;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 24px;
+        }
+        
+        #chat-messages {
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        #chat-box {
+            width: calc(100vw - 1rem);
+            right: 0.5rem;
+            bottom: 4.5rem;
+            left: auto;
+        }
+        
+        #chat-messages {
+            max-height: 50vh;
+            min-height: 250px;
+        }
+    }
+    
+    #chat-box:not(.hidden) {
+        animation: slideUp 0.3s ease;
+    }
+    
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .message-bubble {
+        max-width: 85%;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+    
+    .typing-indicator {
+        display: inline-flex;
+        gap: 4px;
+        padding: 8px 12px;
+    }
+    
+    .typing-indicator span {
+        width: 6px;
+        height: 6px;
+        background: #999;
+        border-radius: 50%;
+        animation: typing 1.4s infinite;
+    }
+    
+    .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    
+    .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+    
+    @keyframes typing {
+        0%, 60%, 100% {
+            transform: translateY(0);
+            opacity: 0.4;
+        }
+        30% {
+            transform: translateY(-6px);
+            opacity: 1;
+        }
+    }
+</style>
 <!-- ЧАТ -->
 <div id="chat-box" class="hidden fixed bottom-20 right-5 w-96 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden z-50">
     
